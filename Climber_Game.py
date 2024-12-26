@@ -78,16 +78,16 @@ entry_climber = input("Welcome to the climbing gulag! You'll be tested against t
 # strenght, power, endurance, power endurance
 
 #Strength climber
-a = 10, 8, 4, 7 #total 29
+a = Climber("Jesse", "OTC", 10, 8, 4, 7) #total 29
 
 # Power climber
-b = 7, 9, 5, 8 #total 
+b = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total 
 
 # Enduro climber
-= 5, 5, 10, 7 #total 
+c = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
 
 # Power Enduro climber
-= 7, 7, 5, 10 #total 
+d = Climber("Megos", "So German", 7, 7, 5, 10 #total 
 
 
 # --------------------------------------------------------------------------- #
