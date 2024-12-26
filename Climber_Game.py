@@ -1,3 +1,5 @@
+## Game!
+
 ## Climbing Game -- Fun Project
 ## One player type of game, kind of exploring projects..
 ## If a move fails, the climber dies
@@ -6,9 +8,16 @@
 ## Climber is tested on the climbs requirments
 
 
-#climbers_name = input("What is your name: ")
-#print(climbers_name)
+#### Thoughts:
+    ## I am wondering how to create a climb with a randomly rolled difficulty
+    ## then match it up to the climber
+    ## That will be the bases of the game!
+    ## I don't know how to store climbers and climbs.. 
 
+# --------------------------------------------------------------------------- #
+
+##  Classes
+ 
 class Climber:
 
     def __init__(self, name, style, str, pow, end, powend):
@@ -30,8 +39,11 @@ class Rock_Climb:
 
     def __repr__(self):
         return f"{self.name}"
-        
 
+# --------------------------------------------------------------------------- #
+
+## Testing
+      
 ## Test Climber
 rico = Climber("Enrico", "balls-limic", 7, 7, 9, 8)
 #print(rico)
@@ -54,12 +66,36 @@ def attempting_climb(climber, climb):
         print(f"{climber} died climbing {climb}")
 
 
-attempting_climb(rico, v_zero)
+attempting_climb(rico, v_zero) # testing function
+
+# --------------------------------------------------------------------------- #
+
+## Game Intro
+
+entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
+
+# climber profiles
+# strenght, power, endurance, power endurance
+
+#Strength climber
+a = 10, 8, 4, 7 #total 29
+
+# Power climber
+b = 7, 9, 5, 8 #total 
+
+# Enduro climber
+= 5, 5, 10, 7 #total 
+
+# Power Enduro climber
+= 7, 7, 5, 10 #total 
 
 
+# --------------------------------------------------------------------------- #
 
+## Git commands
+ 
 ## Make sure to:
 # git init
-# git add
-# git commit -m " "
+# git add .
+# git commit -m " - notes - "
 # git push
