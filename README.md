@@ -1,2 +1,0 @@
-# MyFirstGame
-Just messing around

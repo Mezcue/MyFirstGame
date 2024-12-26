@@ -20,16 +20,42 @@ class Climber:
         self.powend = powend
 
     def __repr__(self):
-        return f"Climber {self.name} style is {self.style}, and stats of: Strength = {self.str}; Power = {self.pow}; Endurance = {self.end}; Power Endurance = {self.powend}"
-    
+        return f"{self.name}"
 
 class Rock_Climb:
-    pass
 
+    def __init__(self, name, difficulty = 20):
+        self.name = name
+        self.difficulty = difficulty
+
+    def __repr__(self):
+        return f"{self.name}"
+        
 
 ## Test Climber
 rico = Climber("Enrico", "balls-limic", 7, 7, 9, 8)
-print(rico)
+#print(rico)
+#print(rico.str)
+
+## Test Rock_Climb
+v_zero = Rock_Climb("Testy")
+#print(v_zero)
+#print(v_zero.difficulty)
+
+## Test Climber on Climb -- if stats don't sum up to/ greater than difficulty .. climber falls and dies
+
+## Have to figure out how to automatically pull each stat. 
+def attempting_climb(climber, climb):
+    total_stats = climber.str + climber.pow + climber.end + climber.powend
+    # return total_stats
+    if total_stats >= climb.difficulty:
+        print(f"{climber} successfully climb {climb}, and didn't die")
+    else:
+        print(f"{climber} died climbing {climb}")
+
+
+attempting_climb(rico, v_zero)
+
 
 
 ## Make sure to:
