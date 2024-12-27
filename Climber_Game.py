@@ -29,7 +29,7 @@ class Climber:
         self.powend = powend
 
     def __repr__(self):
-        return f"{self.name}. It Twerks!"  ## WIll update this!
+        return f"New climber {self.name}, {self.style}, stats: Str{self.str}; Pow{self.pow}; End{self.end}; PowEnd{self.powend}" ## Better update needed
 
     ## Will add more stuff
 
