@@ -81,9 +81,21 @@ attempting_climb(rico, v_zero) # testing function
 # strenght, power, endurance, power endurance
 
 #Strength climber
-a = 10, 8, 4, 7 #total 29
+Jesse = Climber("Jesse", "OTC", 10, 8, 4, 7) #total 29
 
 # Power climber
+Magnus = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total 
+
+# Enduro climber
+Gruper = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
+
+# Power Enduro climber
+Megos = Climber("Megos", "So German", 7, 7, 5, 10 #total 
+                
+# Strength
+a = 10, 8, 4, 7 #total 29
+
+# Power
 b = 7, 9, 4, 8 #total 28
 
 # Enduro climber
