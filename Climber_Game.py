@@ -90,23 +90,30 @@ Magnus = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total
 Gruper = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
 
 # Power Enduro climber
-Megos = Climber("Megos", "So German", 7, 7, 5, 10 #total 
-                
-# Strength
-a = 10, 8, 4, 7 #total 29
+Megos = Climber("Megos", "So German", 7, 7, 5, 10) #total
 
-# Power
-b = 7, 9, 4, 8 #total 28
+# --------------------------------------------------------------------------- #
 
-# Enduro climber
-c = 5, 5, 10, 7 #total 27
+## Based off Davids Idea || Profiles based off them
 
-# Power Enduro climber
-d = 6, 6, 5, 9 #total 26
+Jesse = ("OTC", 10, 8, 4, 7)
 
+Magnus = ("Campus Everything", 7, 9, 5, 8)
+
+Gruper = ("No power, never tired", 5, 5, 10, 7)
+
+Megos = ("So German", 7, 7, 5, 10)
+
+# --------------------------------------------------------------------------- #
+               
 entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
-climber_style = input("Describe your climbing style in one word: ")
 
+#>>>>>>>  Idea
+## May have a create your own
+#climber_style = input("Describe your climbing style in one word: ")
+#>>>>>>>
+
+                
 choice = input(f"Okay, {entry_climber}. What is your profile: a) Strength; b) Power; c) Endurance; d) Power Endurance. Which one -> a, b, c, or d?")
 while choice != 'a' and choice != 'b' and choice != 'c' and choice != 'd':
   choice = input("Whoops, it looks like you didn't choose a, b, c, or d. Try selecting again!")
@@ -114,19 +121,19 @@ while choice != 'a' and choice != 'b' and choice != 'c' and choice != 'd':
 tot_stats = [] ## this captures a tuple in a list format ....  captured in stats below via stats[0]..
 
 if choice == "a":
-    tot_stats.append(a)
+    tot_stats.append(Jesse)
 elif choice == "b":
-    tot_stats.append(b)
+    tot_stats.append(Magnus)
 elif choice == "c":
-    tot_stats.append(c)
+    tot_stats.append(Gruper)
 elif choice == "d":
-    tot_stats.append(d)
+    tot_stats.append(Megos)
 
 entry_climber
 
 stats = tot_stats[0] ## messed up .... maybe can stream line this..
 
-total_package = Climber(entry_climber, climber_style, stats[0], stats[1], stats[2], stats[3])
+total_package = Climber(entry_climber, stats[0], stats[1], stats[2], stats[3], stats[4])
 print(total_package)
     
 # --------------------------------------------------------------------------- #
