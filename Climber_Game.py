@@ -29,7 +29,9 @@ class Climber:
         self.powend = powend
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"{self.name}. It Twerks!"  ## WIll update this!
+
+    ## Will add more stuff
 
 class Rock_Climb:
 
@@ -40,6 +42,9 @@ class Rock_Climb:
     def __repr__(self):
         return f"{self.name}"
 
+    ## Maybe climbs can be built were certain stats are required to make moves.. 
+
+    ## Will add more stuff
 # --------------------------------------------------------------------------- #
 
 ## Testing
@@ -72,24 +77,58 @@ attempting_climb(rico, v_zero) # testing function
 
 ## Game Intro
 
-entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
-
 # climber profiles
 # strenght, power, endurance, power endurance
 
 #Strength climber
-a = Climber("Jesse", "OTC", 10, 8, 4, 7) #total 29
+Jesse = Climber("Jesse", "OTC", 10, 8, 4, 7) #total 29
 
 # Power climber
-b = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total 
+Magnus = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total 
 
 # Enduro climber
-c = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
+Gruper = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
 
 # Power Enduro climber
-d = Climber("Megos", "So German", 7, 7, 5, 10 #total 
+Megos = Climber("Megos", "So German", 7, 7, 5, 10 #total 
+                
+# Strength
+a = 10, 8, 4, 7 #total 29
 
+# Power
+b = 7, 9, 4, 8 #total 28
 
+# Enduro climber
+c = 5, 5, 10, 7 #total 27
+
+# Power Enduro climber
+d = 6, 6, 5, 9 #total 26
+
+entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
+climber_style = input("Describe your climbing style in one word: ")
+
+choice = input(f"Okay, {entry_climber}. What is your profile: a) Strength; b) Power; c) Endurance; d) Power Endurance. Which one -> a, b, c, or d?")
+while choice != 'a' and choice != 'b' and choice != 'c' and choice != 'd':
+  choice = input("Whoops, it looks like you didn't choose a, b, c, or d. Try selecting again!")
+
+tot_stats = [] ## this captures a tuple in a list format ....  captured in stats below via stats[0]..
+
+if choice == "a":
+    tot_stats.append(a)
+elif choice == "b":
+    tot_stats.append(b)
+elif choice == "c":
+    tot_stats.append(c)
+elif choice == "d":
+    tot_stats.append(d)
+
+entry_climber
+
+stats = tot_stats[0] ## messed up .... maybe can stream line this..
+
+total_package = Climber(entry_climber, climber_style, stats[0], stats[1], stats[2], stats[3])
+print(total_package)
+    
 # --------------------------------------------------------------------------- #
 
 ## Git commands
