@@ -136,7 +136,7 @@ segatron = Rock_Climb("Segatron", 30)
 dandie_smearon = Rock_Climb("Dandie Smearon", 40)  ## 40 is the highest number
 
 ## Slurpin Some Cream
-slurpin_some_cream = Rock_Climb("Slurpin Some Cream", 50) ## No, 50 is.. ppl will die in this game
+slurpin_some_creams = Rock_Climb("Slurpin Some Creams", 50) ## No, 50 is.. ppl will die in this game
 
 ## NOTES: How can I set these up -- to contain specific requirements.. (maybe to difficult for me atm).. Lets just climb for now.. 
 
@@ -174,26 +174,27 @@ play_the_game = input("Your stats are set.. Attemp a climb? (Yes or No)")
 
 #Picking a climb (v_zero; segatron; dandie_smearon)
 
-if play_the_game == "No":
-    print("Byeeee!")
-elif play_the_game == "Yes":
-    print("Nice, now pick a climb!")
-
 climb = []
 
-# =======> Needs work; don't know what to do
 
-while play_the_game == "Yes":
-    picking_climb = input("What climb? 1) v_zero; 2) segatron; or 3) dandie_smearon. Type in 1, 2, or 3")
-    if picking_climb == "v_zero":
-        climb.append(v_zero)
-    elif picking_climb == "segatron":
-        climb.append(segatron)
-    elif picking_climb == "dandie_smearon":
-        climb.append(dandie_smearon)
-        
-# =======>
+if play_the_game == "No":
+    print("Byeeee!")
     
+if play_the_game == "Yes":                          ## I don't know how to exit if a climber dies
+
+    print("You're climbing 'Testy'")
+    v_zero.climbing_climb(player_one)
+
+    print("Now you're climbing 'Segatron'")
+    segatron.climbing_climb(player_one)
+
+    print("You're climbing 'Dandie Smearon'")
+    dandie_smearon.climbing_climb(player_one)
+
+    print("Now you're climbing 'Slurpin Some Creams'")
+    slurpin_some_creams.climbing_climb(player_one)
+    
+
 
 # --------------------------------------------------------------------------- #
 
