@@ -49,40 +49,7 @@ class Rock_Climb:
     def __repr__(self):
         return f"{self.name}"
 
-    ## Maybe climbs can be built were certain stats are required to make moves.. 
-
-    ## Will add more stuff
-
-    ## Working with ideas
-        # Trying to create climbs requirements based on stats
-        # if climber attempts without meet requirements, they die.. 
-
-    def start_climb(self, climber):
-
-        ## Requires 8 strength to complete..
-        ## WIll only do this one to see how easy it works (or not)..
-
-        requirement = self.difficulty * .25 ## A stat needs to be 25% of diff. (arbitrary)   
-    
-        while True:
-            if climber.str < requirement:
-                print("Not Strong enough")
-                break
-            elif climber.pow < requirement:
-                print("Now Powerful enough")
-                break
-            elif climber.end < requirement:
-                print("Now Enduro enough")
-                break
-            elif climber.powend < requirement:
-                print("Now Power Enduro enough")
-                break
-            else:
-                print("Send it!")
-                break
-
-       # ========> GPT'd for help
-       
+    # ========> GPT'd for help; this was a challenge... I was kind of on track though. 
     def climbing_climb(self, climber):
         # Calculating number of moves in climb
         rand_move_num = random.randint(1, 8)
@@ -90,7 +57,7 @@ class Rock_Climb:
 
         for move in range(1, rand_move_num+1):
             # Calculating move difficulty
-            rand_move_dif = (random.randint(1, self.difficulty) * .20) ## .20 = arbitrary
+            rand_move_dif = (random.randint(1, self.difficulty) * .20) ## .20 = arbitrary; I wonder if this could be randomly generated ...  stat generation based on easy medium or hard mode.. but that is to much
 
             # Picking random climber stat
             climber_stats = climber.str, climber.end, climber.end, climber.powend
@@ -98,7 +65,7 @@ class Rock_Climb:
 
             # Display move details
             print(f"\nMove {move}:")
-            #print(f"  Move difficulty: {rand_move_dif:.2f}")
+            #print(f"  Move difficulty: {rand_move_dif:.2f}")  ## nice to have but don't want to see difficulty
             print(f"  Chosen climber stat: {rand_climber_stat}")
 
             # Check if the climber can make the move
@@ -114,10 +81,7 @@ class Rock_Climb:
 
         # If all moves are successfully made
         print("\nCongratulations! You completed the climb! 🧗‍♂️")
-
-        # ========>
-
-        
+    # ========>
 
 
 # =========>>>  DAVID
@@ -128,10 +92,7 @@ class David:
 
 # --------------------------------------------------------------------------- #
 
-
-## Game Intro
-
-# Saving these for later -- > climber profiles
+# Climber profiles  --- lower stats makes it hard -- raising stats makes game easier.. 
 
 ## Dummy climber
 Rico = Climber("Enrico", "balls-limic", 7, 7, 9, 8)
@@ -150,20 +111,20 @@ Megos = Climber("Megos", "So German", 7, 7, 5, 10) #total
 
 # --------------------------------------------------------------------------- #
 
-## Based off Davids Idea || Profiles based off them
+## Profiles for player to pick
 
 Jesse = ("OTC", 10, 8, 4, 7)
 
 Magnus = ("Campus Everything", 7, 9, 5, 8)
 
-Gruper = ("No power, never tired", 5, 5, 10, 7)
+Gruper = ("No power, never tired", 5, 5, 10, 7)  ## no power, never tired is funny
 
 Megos = ("So German", 7, 7, 5, 10)
 
 
 # --------------------------------------------------------------------------- #
 
-# Climbs to use
+# Climbs to pick from --- or are in the gauntlet
 
 ## Test Rock Climb
 v_zero = Rock_Climb("Testy")
@@ -174,17 +135,16 @@ segatron = Rock_Climb("Segatron", 30)
 ## Slab is for Kings
 dandie_smearon = Rock_Climb("Dandie Smearon", 40)  ## 40 is the highest number
 
+## Slurpin Some Cream
+slurpin_some_cream = Rock_Climb("Slurpin Some Cream", 50) ## No, 50 is.. ppl will die in this game
+
 ## NOTES: How can I set these up -- to contain specific requirements.. (maybe to difficult for me atm).. Lets just climb for now.. 
 
 # --------------------------------------------------------------------------- #
+
+## Getting player data
                
 entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
-
-#>>>>>>>  Idea
-## May have a create your own
-#climber_style = input("Describe your climbing style in one word: ")
-#>>>>>>>
-
                 
 choice = input(f"Okay, {entry_climber}. What is your profile: a) Strength; b) Power; c) Endurance; d) Power Endurance. Which one -> a, b, c, or d?")
 while choice != 'a' and choice != 'b' and choice != 'c' and choice != 'd':
@@ -201,46 +161,15 @@ elif choice == "c":
 elif choice == "d":
     tot_stats.append(Megos)
 
-entry_climber
-
 stats = tot_stats[0] ## messed up .... maybe can stream line this..
-
-
 
 player_one = Climber(entry_climber, stats[0], stats[1], stats[2], stats[3], stats[4])  ## Need to change the name of this
 print(player_one)
     
 # --------------------------------------------------------------------------- #
 
-## Testing
-      
+# Playing the Game
 
-#print(rico)
-#print(rico.str)
-
-
-#print(v_zero)
-#print(v_zero.difficulty)
-
-## Test Climber on Climb -- if stats don't sum up to/ greater than difficulty .. climber falls and dies
-
-## Have to figure out how to automatically pull each stat. 
-def attempting_climb(climber, climb):
-    total_stats = climber.str + climber.pow + climber.end + climber.powend
-    # return total_stats
-    if total_stats >= climb.difficulty:
-        print(f"{climber} successfully climb {climb}, and didn't die")
-    else:
-        print(f"{climber} died climbing {climb}")
-
-
-# attempting_climb(Rico, v_zero) # testing function
-
-# --------------------------------------------------------------------------- #
-
-## 
-
-#Starting
 play_the_game = input("Your stats are set.. Attemp a climb? (Yes or No)")
 
 #Picking a climb (v_zero; segatron; dandie_smearon)
@@ -252,7 +181,7 @@ elif play_the_game == "Yes":
 
 climb = []
 
-# =======> Needs work
+# =======> Needs work; don't know what to do
 
 while play_the_game == "Yes":
     picking_climb = input("What climb? 1) v_zero; 2) segatron; or 3) dandie_smearon. Type in 1, 2, or 3")
@@ -265,12 +194,6 @@ while play_the_game == "Yes":
         
 # =======>
     
-
-# --------------------------------------------------------------------------- #
-
-## Playing the game
-play_the_game
-
 
 # --------------------------------------------------------------------------- #
 
