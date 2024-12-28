@@ -1,18 +1,7 @@
-## Game!
+
 
 ## Climbing Game -- Fun Project
-## One player type of game, kind of exploring projects..
-## If a move fails, the climber dies
-## There is a climber, a project with moves
-## takes climbers levels (endurace, pwoer, sterngth, and PE)
-## Climber is tested on the climbs requirments
 
-
-#### Thoughts:
-    ## I am wondering how to create a climb with a randomly rolled difficulty
-    ## then match it up to the climber
-    ## That will be the bases of the game!
-    ## I don't know how to store climbers and climbs.. 
 
 # --------------------------------------------------------------------------- #
 
@@ -92,28 +81,41 @@ class Rock_Climb:
                 print("Send it!")
                 break
 
-    ## Ideas
+       # ========> GPT'd for help
+       
     def climbing_climb(self, climber):
-
-        ## The idea here is to create a random roll some how
-        ## the climber gets to choose where or not they want to make a move..
-        ## If a roll is higher than a stat, or stat combo then climber falls and dies
-        ## if stats are higher than roll, then climber continues..
-        ## how can I create a total number of movers per climb then and create the random roll difficulty measure for climbers to beat..
-
-        ## It would be something like...
-
-        # Calculating move difficulty
-        rand_move_dif = (random.randint(1, self.difficulty) * .20)   ## Pick .20 arbitrarily -- subject to change
-
         # Calculating number of moves in climb
         rand_move_num = random.randint(1, 8)
+        print(f"Total moves: {rand_move_num}")
 
-        # Picking random climber stat
-        climber_stats = climber.str, climber.end, climber.end, climber.powend
-        rand_climber_stat = random.choice(climber_stats)
+        for move in range(1, rand_move_num+1):
+            # Calculating move difficulty
+            rand_move_dif = (random.randint(1, self.difficulty) * .20) ## .20 = arbitrary
 
-        ## Climbing
+            # Picking random climber stat
+            climber_stats = climber.str, climber.end, climber.end, climber.powend
+            rand_climber_stat = random.choice(climber_stats)
+
+            # Display move details
+            print(f"\nMove {move}:")
+            #print(f"  Move difficulty: {rand_move_dif:.2f}")
+            print(f"  Chosen climber stat: {rand_climber_stat}")
+
+            # Check if the climber can make the move
+            if rand_climber_stat < rand_move_dif:
+                print("You fell and died! 😢")
+                return  # Exit the climb
+
+            # Ask climber if they want to make the move
+            choice = input("Do you want to make the move? (yes/no): ").lower()
+            if choice != "yes":
+                print("You chose not to move. Ending climb.")
+                return
+
+        # If all moves are successfully made
+        print("\nCongratulations! You completed the climb! 🧗‍♂️")
+
+        # ========>
 
         
 
