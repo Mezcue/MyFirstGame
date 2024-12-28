@@ -16,6 +16,13 @@
 
 # --------------------------------------------------------------------------- #
 
+## Imports
+
+import random
+
+# --------------------------------------------------------------------------- #
+
+
 ##  Classes
 
 
@@ -32,10 +39,10 @@ class Climber:
     def __repr__(self):
         return f"New climber {self.name}, {self.style}, stats: Str{self.str}; Pow{self.pow}; End{self.end}; PowEnd{self.powend}" ## Better update needed
 
+    ## Ideas
+    
     def climb_attempt(self):
         pass
-
-    ## Ideas
 
     def lose_health(self):
         pass
@@ -61,12 +68,12 @@ class Rock_Climb:
         # Trying to create climbs requirements based on stats
         # if climber attempts without meet requirements, they die.. 
 
-    def attempt_climb(self, climber):
+    def start_climb(self, climber):
 
         ## Requires 8 strength to complete..
         ## WIll only do this one to see how easy it works (or not)..
 
-        requirement = self.difficulty * .25 ## A stat needs to be 25% of diff  (arbitrary)   
+        requirement = self.difficulty * .25 ## A stat needs to be 25% of diff. (arbitrary)   
     
         while True:
             if climber.str < requirement:
@@ -84,9 +91,37 @@ class Rock_Climb:
             else:
                 print("Send it!")
                 break
+
+    ## Ideas
+    def climbing_climb(self, climber):
+
+        ## The idea here is to create a random roll some how
+        ## the climber gets to choose where or not they want to make a move..
+        ## If a roll is higher than a stat, or stat combo then climber falls and dies
+        ## if stats are higher than roll, then climber continues..
+        ## how can I create a total number of movers per climb then and create the random roll difficulty measure for climbers to beat..
+
+        ## It would be something like...
+
+        # Calculating move difficulty
+        rand_move_dif = (random.randint(1, self.difficulty) * .20)   ## Pick .20 arbitrarily -- subject to change
+
+        # Calculating number of moves in climb
+        rand_move_num = random.randint(1, 8)
+
+        # Picking random climber stat
+        climber_stats = climber.str, climber.end, climber.end, climber.powend
+        rand_climber_stat = random.choice(climber_stats)
+
+        ## Climbing
+
         
+
+
 # =========>>>  DAVID
 ## If you'd like, create a random class that interacts with stuff..
+class David:
+    pass
 
 
 # --------------------------------------------------------------------------- #
@@ -197,16 +232,42 @@ def attempting_climb(climber, climb):
         print(f"{climber} died climbing {climb}")
 
 
-attempting_climb(Rico, v_zero) # testing function
+# attempting_climb(Rico, v_zero) # testing function
 
 # --------------------------------------------------------------------------- #
 
-## Playing the game
+## 
 
 #Starting
 play_the_game = input("Your stats are set.. Attemp a climb? (Yes or No)")
 
 #Picking a climb (v_zero; segatron; dandie_smearon)
+
+if play_the_game == "No":
+    print("Byeeee!")
+elif play_the_game == "Yes":
+    print("Nice, now pick a climb!")
+
+climb = []
+
+# =======> Needs work
+
+while play_the_game == "Yes":
+    picking_climb = input("What climb? 1) v_zero; 2) segatron; or 3) dandie_smearon. Type in 1, 2, or 3")
+    if picking_climb == "v_zero":
+        climb.append(v_zero)
+    elif picking_climb == "segatron":
+        climb.append(segatron)
+    elif picking_climb == "dandie_smearon":
+        climb.append(dandie_smearon)
+        
+# =======>
+    
+
+# --------------------------------------------------------------------------- #
+
+## Playing the game
+play_the_game
 
 
 # --------------------------------------------------------------------------- #
