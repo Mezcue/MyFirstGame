@@ -1,202 +1,169 @@
 
 
-## Climbing Game -- Fun Project
+############################################################################################################
+############################################################################################################
+#################################### Climbing Game -- Fun Project ##########################################
+############################################################################################################
+############################################################################################################
 
 
-# --------------------------------------------------------------------------- #
-
-## Imports
+## Absolutly butchered second attempt --- GPT helped me organize. 
 
 import random
+from time import sleep
 
-# --------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------- #
+# Person Class (Player Setup)
+# -------------------------------------------------------------------------------------------------------- #
 
+class Person:
+    person_count = 0  # Tracks the number of players
 
-##  Classes
+    def __init__(self, name):
+        Person.person_count += 1
+        self.id = Person.person_count
+        self.name = name
 
+    def __str__(self):
+        return f"{self.name:<15}"
+
+    def print_greeting(self):
+        print(f"Hello, {self.name}! You're climber #{self.id} today. Let's build your profile.")
+
+# -------------------------------------------------------------------------------------------------------- #
+# Climber Class (Stats Setup)
+# -------------------------------------------------------------------------------------------------------- #
 
 class Climber:
+    def __init__(self):
+        self.str = random.randint(1, 11)
+        self.pow = random.randint(1, 11)
+        self.end = random.randint(1, 11)
+        self.powend = random.randint(1, 11)
 
-    def __init__(self, name, style, str, pow, end, powend, health = 100): 
-        self.name = name
-        self.style = style
-        self.str = str
-        self.pow = pow
-        self.end = end
-        self.powend = powend
+    def __str__(self):
+        return (
+            f"Stats:\n"
+            f"  Strength - {self.str}\n"
+            f"  Power - {self.pow}\n"
+            f"  Endurance - {self.end}\n"
+            f"  Power Endurance - {self.powend}"
+        )
 
-    def __repr__(self):
-        return f"New climber {self.name}, {self.style}, stats: Str{self.str}; Pow{self.pow}; End{self.end}; PowEnd{self.powend}" ## Better update needed
+# -------------------------------------------------------------------------------------------------------- #
+# Climb Base Class
+# -------------------------------------------------------------------------------------------------------- #
 
-    ## Ideas
-    
-    def climb_attempt(self):
-        pass
+class Climb:
+    def __init__(self, difficulty_multiplier, base_difficulty):
+        self.difficulty_multiplier = difficulty_multiplier
+        self.base_difficulty = base_difficulty
 
-    def lose_health(self):
-        pass
+    def difficulty(self):
+        return random.randint(1, self.base_difficulty) * self.difficulty_multiplier
 
-    def died(self):
-        pass
-    
+    def climber_stats(self, climber):
+        climber_stats = [climber.str, climber.end, climber.end, climber.powend]
+        return random.choice(climber_stats)
 
-class Rock_Climb:
+    def climb(self, climber):
+        moves = random.randint(1, 8)
+        print(f"\nThis climb has {moves} moves.")
+        for move in range(1, moves + 1):
+            move_difficulty = self.difficulty()
+            climber_stat = self.climber_stats(climber)
 
-    def __init__(self, name, difficulty = 20):
-        self.name = name
-        self.difficulty = difficulty
-
-    def __repr__(self):
-        return f"{self.name}"
-
-    # ========> GPT'd for help; this was a challenge... I was kind of on track though. 
-    def climbing_climb(self, climber):
-        # Calculating number of moves in climb
-        rand_move_num = random.randint(1, 8)
-        print(f"Total moves: {rand_move_num}")
-
-        for move in range(1, rand_move_num+1):
-            # Calculating move difficulty
-            rand_move_dif = (random.randint(1, self.difficulty) * .20) ## .20 = arbitrary; I wonder if this could be randomly generated ...  stat generation based on easy medium or hard mode.. but that is to much
-
-            # Picking random climber stat
-            climber_stats = climber.str, climber.end, climber.end, climber.powend
-            rand_climber_stat = random.choice(climber_stats)
-
-            # Display move details
             print(f"\nMove {move}:")
-            #print(f"  Move difficulty: {rand_move_dif:.2f}")  ## nice to have but don't want to see difficulty
-            print(f"  Chosen climber stat: {rand_climber_stat}")
+            print(f"  Move Difficulty: {move_difficulty:.2f}")
+            print(f"  Climber's Stat: {climber_stat}")
 
-            # Check if the climber can make the move
-            if rand_climber_stat < rand_move_dif:
-                print("You fell and died! 😢")
-                return  # Exit the climb
+            if climber_stat < move_difficulty:
+                print("\nYou fell and Died! Game over. 😢")
+                return
 
-            # Ask climber if they want to make the move
-            choice = input("Do you want to make the move? (yes/no): ").lower()
+            choice = input("Do you want to make the move? (yes/no): ").strip().lower()
             if choice != "yes":
                 print("You chose not to move. Ending climb.")
                 return
 
-        # If all moves are successfully made
         print("\nCongratulations! You completed the climb! 🧗‍♂️")
-    # ========>
 
+# -------------------------------------------------------------------------------------------------------- #
+# Specific Climbs (Derived Classes)
+# -------------------------------------------------------------------------------------------------------- #
 
-# =========>>>  DAVID
-## If you'd like, create a random class that interacts with stuff..
-class David:
-    pass
+class VHero(Climb):
+    def __init__(self):
+        super().__init__(difficulty_multiplier=0.2, base_difficulty=30)
 
+    def __str__(self):
+        return "VHero: A medium-difficulty climb."
 
-# --------------------------------------------------------------------------- #
+class SlurpinOnCreams(Climb):
+    def __init__(self):
+        super().__init__(difficulty_multiplier=0.2, base_difficulty=40)
 
-# Climber profiles  --- lower stats makes it hard -- raising stats makes game easier.. 
+    def __str__(self):
+        return "Slurpin On Creams: A mega-hard climb."
 
-## Dummy climber
-Rico = Climber("Enrico", "balls-limic", 7, 7, 9, 8)
+# -------------------------------------------------------------------------------------------------------- #
+# Game Manager
+# -------------------------------------------------------------------------------------------------------- #
 
-#Strength climber
-Jesse = Climber("Jesse", "OTC", 10, 8, 4, 7) #total 29
+class ClimbingGame:
+    def __init__(self):
+        self.player = None
+        self.climber = None
 
-# Power climber
-Magnus = Climber("Magnus", "Campus Everything", 7, 9, 5, 8) #total 
+    def create_person(self):
+        name = input("Enter your climber's name: ").strip()
+        self.player = Person(name)
+        self.player.print_greeting()
 
-# Enduro climber
-Gruper = Climber("Jesse Gruper", "No power, never tired", 5, 5, 10, 7) #total 
+    def create_climber(self):
+        print("\nGenerating your climber's stats...")
+        sleep(1)
+        self.climber = Climber()
+        print(self.climber)
 
-# Power Enduro climber
-Megos = Climber("Megos", "So German", 7, 7, 5, 10) #total
+    def choose_climb(self):
+        print("\nChoose your climb:")
+        print("  1. VHero (Medium difficulty)")
+        print("  2. Slurpin On Creams (Hard difficulty)")
 
-# --------------------------------------------------------------------------- #
+        choice = input("Enter 1 or 2: ").strip()
+        if choice == "1":
+            return VHero()
+        elif choice == "2":
+            return SlurpinOnCreams()
+        else:
+            print("Invalid choice. Try again.")
+            return self.choose_climb()
 
-## Profiles for player to pick
+    def start_climb(self):
+        climb = self.choose_climb()
+        print(f"\nYou've chosen: {climb}")
+        climb.climb(self.climber)
 
-Jesse = ("OTC", 10, 8, 4, 7)
+    def run(self):
+        self.create_person()
+        self.create_climber()
+        while True:
+            self.start_climb()
+            play_again = input("\nDo you want to try another climb? (yes/no): ").strip().lower()
+            if play_again != "yes":
+                print("Thanks for playing! Goodbye! 👋")
+                break
 
-Magnus = ("Campus Everything", 7, 9, 5, 8)
+# -------------------------------------------------------------------------------------------------------- #
+# Run the Game
+# -------------------------------------------------------------------------------------------------------- #
 
-Gruper = ("No power, never tired", 5, 5, 10, 7)  ## no power, never tired is funny
+if __name__ == "__main__":
+    game = ClimbingGame()
+    game.run()
 
-Megos = ("So German", 7, 7, 5, 10)
-
-
-# --------------------------------------------------------------------------- #
-
-# Climbs to pick from --- or are in the gauntlet
-
-## Test Rock Climb
-v_zero = Rock_Climb("Testy")
-
-## A harder Rock Climb
-segatron = Rock_Climb("Segatron", 30)
-
-## Slab is for Kings
-dandie_smearon = Rock_Climb("Dandie Smearon", 40)  ## 40 is the highest number
-
-## Slurpin Some Cream
-slurpin_some_creams = Rock_Climb("Slurpin Some Creams", 50) ## No, 50 is.. ppl will die in this game
-
-## NOTES: How can I set these up -- to contain specific requirements.. (maybe to difficult for me atm).. Lets just climb for now.. 
-
-# --------------------------------------------------------------------------- #
-
-## Getting player data
-               
-entry_climber = input("Welcome to the climbing gulag! You'll be tested against the best! Enter your name: ")
-                
-choice = input(f"Okay, {entry_climber}. What is your profile: a) Strength; b) Power; c) Endurance; d) Power Endurance. Which one -> a, b, c, or d?")
-while choice != 'a' and choice != 'b' and choice != 'c' and choice != 'd':
-  choice = input("Whoops, it looks like you didn't choose a, b, c, or d. Try selecting again!")
-
-tot_stats = [] ## this captures a tuple in a list format ....  captured in stats below via stats[0]..
-
-if choice == "a":
-    tot_stats.append(Jesse)
-elif choice == "b":
-    tot_stats.append(Magnus)
-elif choice == "c":
-    tot_stats.append(Gruper)
-elif choice == "d":
-    tot_stats.append(Megos)
-
-stats = tot_stats[0] ## messed up .... maybe can stream line this..
-
-player_one = Climber(entry_climber, stats[0], stats[1], stats[2], stats[3], stats[4])  ## Need to change the name of this
-print(player_one)
-    
-# --------------------------------------------------------------------------- #
-
-# Playing the Game
-
-play_the_game = input("Your stats are set.. Attemp a climb? (Yes or No)")
-
-#Picking a climb (v_zero; segatron; dandie_smearon)
-
-climb = []
-
-
-if play_the_game == "No":
-    print("Byeeee!")
-    
-if play_the_game == "Yes":                          ## I don't know how to exit if a climber dies
-
-    print("You're climbing 'Testy'")
-    v_zero.climbing_climb(player_one)
-
-    print("Now you're climbing 'Segatron'")
-    segatron.climbing_climb(player_one)
-
-    print("You're climbing 'Dandie Smearon'")
-    dandie_smearon.climbing_climb(player_one)
-
-    print("Now you're climbing 'Slurpin Some Creams'")
-    slurpin_some_creams.climbing_climb(player_one)
-    
-
-
-# --------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------------------------------------- #
 
 ## Git commands
  
