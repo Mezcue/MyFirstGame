@@ -81,7 +81,7 @@ class Climb:
                 print("\nYou fell and Died! Game over. 😢")
                 return
 
-            choice = input("Do you want to make the move? (yes/no): ").strip().lower()
+            choice = input("Do you want to make the next move? (yes/no): ").strip().lower()
             if choice != "yes":
                 print("You chose not to move. Ending climb.")
                 return
