@@ -6,35 +6,38 @@
 ############################################################################################################
 ############################################################################################################
 
-
-## Absolutly butchered second attempt --- GPT helped me organize. 
-
+import unittest
 import random
 from time import sleep
+
+try_example = """
+try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+    print(f"Result is {result}")
+except Exception as e:  # Catch any exception and get its details
+    print(f"An error occurred: {e}")
+"""
 
 # -------------------------------------------------------------------------------------------------------- #
 # Person Class (Player Setup)
 # -------------------------------------------------------------------------------------------------------- #
 
 class Person:
-    person_count = 0  # Tracks the number of players
 
-    def __init__(self, name):
-        Person.person_count += 1
-        self.id = Person.person_count
+    def __init__(self, name, style):
         self.name = name
+        self.style = style
 
     def __str__(self):
-        return f"{self.name:<15}"
-
-    def print_greeting(self):
-        print(f"Hello, {self.name}! You're climber #{self.id} today. Let's build your profile.")
+        return f"{self.name} : {self.style}"
 
 # -------------------------------------------------------------------------------------------------------- #
-# Climber Class (Stats Setup)
+# Stats Class (Generating Stats for Person)
 # -------------------------------------------------------------------------------------------------------- #
 
-class Climber:
+class Stats:
+
     def __init__(self):
         self.str = random.randint(1, 11)
         self.pow = random.randint(1, 11)
@@ -43,129 +46,87 @@ class Climber:
 
     def __str__(self):
         return (
-            f"Stats:\n"
-            f"  Strength - {self.str}\n"
-            f"  Power - {self.pow}\n"
-            f"  Endurance - {self.end}\n"
-            f"  Power Endurance - {self.powend}"
-        )
+            "Stats:\n"
+            f"  Strength: {self.str}\n"
+            f"  Power: {self.pow}\n"
+            f"  Endurance: {self.end}\n"
+            f"  Power Endurance: {self.powend}"
+            )
 
 # -------------------------------------------------------------------------------------------------------- #
-# Climb Base Class
+# Rock Climbs (Making the Climbs)
 # -------------------------------------------------------------------------------------------------------- #
+
+
+## Needed help with this; still learning how to properly have classes interact with each other. Lots of 'self.' stuff
+## New item learned:
+    ## The super() function is used in a child class to call a method from the parent class.
+    ## This ensures that the parent class's initialization or behavior is preserved.
+
 
 class Climb:
-    def __init__(self, difficulty_multiplier, base_difficulty):
-        self.difficulty_multiplier = difficulty_multiplier
-        self.base_difficulty = base_difficulty
 
-    def difficulty(self):
-        return random.randint(1, self.base_difficulty) * self.difficulty_multiplier
+    def __init__(self, base_diff, multiplier):
+        self.base_diff = random.randint(1, base_diff)
+        self.multiplier = multiplier
+        self.difficulty = self.base_diff * self.multiplier
 
-    def climber_stats(self, climber):
-        climber_stats = [climber.str, climber.end, climber.end, climber.powend]
-        return random.choice(climber_stats)
+class v_Hero(Climb): ## Easy climb - respectfully
 
-    def climb(self, climber):
-        moves = random.randint(1, 8)
-        print(f"\nThis climb has {moves} moves.")
-        for move in range(1, moves + 1):
-            move_difficulty = self.difficulty()
-            climber_stat = self.climber_stats(climber)
-
-            print(f"\nMove {move}:")
-            print(f"  Move Difficulty: {move_difficulty:.2f}")
-            print(f"  Climber's Stat: {climber_stat}")
-
-            if climber_stat < move_difficulty:
-                print("\nYou fell and Died! Game over. 😢")
-                return
-
-            choice = input("Do you want to make the next move? (yes/no): ").strip().lower()
-            if choice != "yes":
-                print("You chose not to move. Ending climb.")
-                return
-
-        print("\nCongratulations! You completed the climb! 🧗‍♂️")
-
-# -------------------------------------------------------------------------------------------------------- #
-# Specific Climbs (Derived Classes)
-# -------------------------------------------------------------------------------------------------------- #
-
-class VHero(Climb):
     def __init__(self):
-        super().__init__(difficulty_multiplier=0.2, base_difficulty=30)
+        super().__init__(multiplier=0.2, base_diff=20)  
 
     def __str__(self):
-        return "VHero: A medium-difficulty climb."
+        return f"{self.difficulty}"
 
-class SlurpinOnCreams(Climb):
-    def __init__(self):
-        super().__init__(difficulty_multiplier=0.2, base_difficulty=40)
+class more_diff_climbs:
+    pass
 
-    def __str__(self):
-        return "Slurpin On Creams: A mega-hard climb."
 
 # -------------------------------------------------------------------------------------------------------- #
-# Game Manager
+# Climbing Management (Managing everything)
 # -------------------------------------------------------------------------------------------------------- #
 
-class ClimbingGame:
+class Climbing_Game:
+
     def __init__(self):
-        self.player = None
-        self.climber = None
+        self.person = None
+        self.stats = None
 
     def create_person(self):
-        name = input("Enter your climber's name: ").strip()
-        self.player = Person(name)
-        self.player.print_greeting()
+        name = input("Name: ")
+        style = input("Style: ")
+        self.person = Person(name, style)
+        print(self.person)
 
-    def create_climber(self):
-        print("\nGenerating your climber's stats...")
-        sleep(1)
-        self.climber = Climber()
-        print(self.climber)
-
-    def choose_climb(self):
-        print("\nChoose your climb:")
-        print("  1. VHero (Medium difficulty)")
-        print("  2. Slurpin On Creams (Hard difficulty)")
-
-        choice = input("Enter 1 or 2: ").strip()
-        if choice == "1":
-            return VHero()
-        elif choice == "2":
-            return SlurpinOnCreams()
-        else:
-            print("Invalid choice. Try again.")
-            return self.choose_climb()
-
-    def start_climb(self):
-        climb = self.choose_climb()
-        print(f"\nYou've chosen: {climb}")
-        climb.climb(self.climber)
-
+    def create_stats(self):
+        self.stats = Stats()
+        print(self.stats)
+       
+        
     def run(self):
         self.create_person()
-        self.create_climber()
-        while True:
-            self.start_climb()
-            play_again = input("\nDo you want to try another climb? (yes/no): ").strip().lower()
-            if play_again != "yes":
-                print("Thanks for playing! Goodbye! 👋")
-                break
+        self.create_stats()
+        
+        
+
 
 # -------------------------------------------------------------------------------------------------------- #
-# Run the Game
+# Running the game
 # -------------------------------------------------------------------------------------------------------- #
 
-if __name__ == "__main__":
-    game = ClimbingGame()
-    game.run()
+if __name__ == '__main__':
 
+    try:
+        game = Climbing_Game()
+        game.run()
+        
+    except Exception as e:  # Catch any exception and get its details
+        print(f"An error occurred: {e}")
+        
 # -------------------------------------------------------------------------------------------------------- #
-
-## Git commands
+# Git commands
+# -------------------------------------------------------------------------------------------------------- #
  
 ## Make sure to:
 # git init
